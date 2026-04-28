@@ -311,7 +311,7 @@ cfyourmovie/
 
 ## Built By
 
-**IIIT Delhi · Kush Tokas · 2025–26**
+**Kush Tokas · Oyouknome_who**
 
 
 ---
