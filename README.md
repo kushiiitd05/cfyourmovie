@@ -309,16 +309,10 @@ cfyourmovie/
 
 ---
 
-## Team
+## Built By
 
-**Group G22 · IIIT Delhi · 2025–26**
+**IIIT Delhi · Kush Tokas · 2025–26**
 
-| Member | Roll No. |
-|---|---|
-| Arshpreet Singh | 2023135 |
-| Kush Tokas | 2023296 |
-| Manjot Singh | 2023309 |
-| Jaiswal Raj Shivprakash Poonam | PhD23014 |
 
 ---
 
