@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+# /home/vinayak23597/Kush/cf_final_project/.venv/bin/python
+#
+# Install: pip install -r requirements.txt --break-system-packages
+# Or with venv active: pip install -r requirements.txt
+
+# ── LangChain + OpenAI-compatible clients ─────────────────────
+langchain>=0.2.16,<0.3.0
+langchain-openai>=0.1.8          # ChatOpenAI for Groq/NVIDIA/OpenRouter
+langchain-community>=0.2.16,<0.3.0
+openai>=1.40.0                   # NVIDIA NIM embedding API (OpenAI-compatible)
+
+# ── Vector store ──────────────────────────────────────────────
+# faiss-cpu works fine on A100 for 1682 items (index fits in RAM, GPU not needed)
+# If you want GPU FAISS: pip install faiss-gpu instead
+faiss-cpu>=1.7.4
+
+# ── ML / numerics ─────────────────────────────────────────────
+numpy>=1.24,<2.0
+pandas>=2.0.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# ── Embeddings ────────────────────────────────────────────────
+sentence-transformers>=2.7.0     # for all-MiniLM-L6-v2 (Mix_GPU CB component)
+# torch is a dependency of sentence-transformers — pulled in automatically
+# but pin to avoid CUDA compatibility issues with your A100:
+torch>=2.1.0
+
+# ── Tuning ────────────────────────────────────────────────────
+optuna>=3.4.0
+
+# ── Already present in your server env — listed for completeness ──
+# These should already be installed from your existing mix_gpu.py work:
+#   torch (pinned above)
+#   sentence-transformers (pinned above)

@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   CINEMA NOIR — CfYourMovie
+   Identity: Letterboxd × A24 × MUBI
+   Accent: Cinema Amber #D97706
+   ═══════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* Surfaces — Pure noir */
+    --s0: #000000;
+    --s1: #050505;
+    --s2: #0a0a0a;
+    --s3: #0f0f12;
+    --s4: #121215;
+
+    /* Accent — Cinema Amber (projector light) */
+    --accent-1:        #D97706;
+    --accent-2:        #B45309;
+    --accent-gradient: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+    --accent-glow:     rgba(217, 119, 6, 0.2);
+
+    /* Text */
+    --t-primary:   #ffffff;
+    --t-secondary: #a1a1aa;
+    --t-muted:     #52525b;
+
+    /* Borders */
+    --border-ui:     rgba(255,255,255,0.06);
+    --border-bright: rgba(255,255,255,0.12);
+
+    /* Elevation */
+    --shadow-card:  0 8px 24px rgba(0,0,0,0.8);
+    --shadow-hover: 0 20px 40px rgba(0,0,0,0.95), 0 0 1px rgba(255,255,255,0.05);
+    --shadow-modal: 0 40px 100px rgba(0,0,0,1);
+
+    /* Nav */
+    --nav-bg:     rgba(0,0,0,0.82);
+    --nav-filter: blur(24px) saturate(140%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.015em;
+    background: var(--s0);
+    color: var(--t-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Cinema spotlight — warm amber from above, dark vignette below */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 45% at 50% -8%, rgba(217,119,6,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 100% 40% at 50% 110%, rgba(0,0,0,0.8) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Film grain texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.032'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+    z-index: 100;
+  }
+
+  /* Minimal scrollbar */
+  ::-webkit-scrollbar { width: 3px; height: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(217,119,6,0.25); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(217,119,6,0.45); }
+}
+
+@layer utilities {
+  /* ── Typography ── */
+  .text-hero {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    color: #fff;
+  }
+
+  .text-section {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
+  .text-card-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .text-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+  }
+
+  .text-meta {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: -0.014em;
+    color: var(--t-secondary);
+  }
+
+  /* ── Nav glass ── */
+  .glass-nav {
+    background: var(--nav-bg);
+    backdrop-filter: var(--nav-filter);
+    -webkit-backdrop-filter: var(--nav-filter);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .glass {
+    background: rgba(8,8,8,0.8);
+    border: 1px solid var(--border-ui);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    background: var(--accent-gradient);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: scale(1.02); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-pill-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--t-secondary);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-pill-outline:hover {
+    color: var(--t-primary);
+    border-color: rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* ── Poster card ── */
+  .poster-card {
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #050505;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.2, 1, 0.2, 1),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+  }
+  .poster-card:hover {
+    transform: scale(1.035) translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(217,119,6,0.2);
+  }
+
+  /* ── Rail ── */
+  .poster-rail {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .poster-rail::-webkit-scrollbar { display: none; }
+  .poster-rail-item { flex: 0 0 auto; scroll-snap-align: start; }
+
+  /* ── Signal badges ── */
+  .signal-top-pick {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #000;
+    font-weight: 700;
+  }
+  .signal-trending {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    font-weight: 700;
+  }
+  .signal-hidden-gem {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ── Shimmer ── */
+  @keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position:  400px 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg,
+      var(--s1) 25%,
+      var(--s2) 50%,
+      var(--s1) 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.6s infinite;
+  }
+
+  /* ── Modal backdrop ── */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  /* ── Genre chips — editorial minimal ── */
+  .genre-chip {
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    padding: 4px 11px;
+    border-radius: 2px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.38);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .genre-chip:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ── Input ── */
+  .cf-input {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--t-primary);
+    background: rgba(255,255,255,0.03);
+    box-shadow: rgba(255,255,255,0.06) 0 0 0 1px inset;
+    border: none;
+    outline: none;
+    transition: box-shadow 0.2s ease;
+  }
+  .cf-input:focus {
+    box-shadow: rgba(217,119,6,0.5) 0 0 0 1.5px inset;
+  }
+  .cf-input::placeholder { color: var(--t-muted); }
+}
