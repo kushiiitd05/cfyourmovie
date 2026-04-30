@@ -43,7 +43,8 @@ export default function MovieModal({ movie, onClose }: Props) {
   const displayGenres = tmdbGenres.length ? tmdbGenres : (
     Array.isArray(movie.genres) ? movie.genres : String(movie.genres ?? '').split('|').filter(Boolean)
   )
-  const imdbId = detail?.imdb_id as string | undefined
+  const imdbId = (detail?.imdb_id || movie.imdb_id) as string | undefined
+  const streamUrl = imdbId ? `https://www.playimdb.com/title/${imdbId}/` : null
 
   return (
     <motion.div
@@ -158,6 +159,17 @@ export default function MovieModal({ movie, onClose }: Props) {
                         style={{ background: '#F5C518', color: '#000' }}
                       >
                         IMDb ↗
+                      </a>
+                    )}
+                    {streamUrl && (
+                      <a
+                        href={streamUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-bold px-3 py-1 rounded transition-opacity hover:opacity-80 flex items-center gap-1"
+                        style={{ background: 'rgba(217,119,6,0.2)', border: '1px solid rgba(217,119,6,0.3)', color: 'var(--accent-1)' }}
+                      >
+                        <Film size={12} /> Stream
                       </a>
                     )}
                   </div>
